@@ -10,6 +10,8 @@ export default function AddConferenceForm({ onCreated }: { onCreated: () => void
   const [description, setDescription] = useState('');
   const [startDate, setStartDate] = useState('');
   const [deadline, setDeadline] = useState('');
+  const [registrationFee, setRegistrationFee] = useState('');
+  const [paymentLinkUrl, setPaymentLinkUrl] = useState('');
   const [brochure, setBrochure] = useState<File | null>(null);
   const [flyer, setFlyer] = useState<File | null>(null);
   const [loading, setLoading] = useState(false);
@@ -45,6 +47,8 @@ export default function AddConferenceForm({ onCreated }: { onCreated: () => void
         description,
         start_date: startDate || null,
         submission_deadline: deadline || null,
+        registration_fee: registrationFee || null,
+        payment_link_url: paymentLinkUrl || null,
         brochure_url: brochureUrl,
         flyer_url: flyerUrl
       });
@@ -53,7 +57,8 @@ export default function AddConferenceForm({ onCreated }: { onCreated: () => void
 
       // reset form
       setTitle(''); setDepartment(''); setStatus('upcoming'); setDescription('');
-      setStartDate(''); setDeadline(''); setBrochure(null); setFlyer(null);
+      setStartDate(''); setDeadline(''); setRegistrationFee(''); setPaymentLinkUrl('');
+      setBrochure(null); setFlyer(null);
 
       onCreated();
     } catch (err: any) {
@@ -104,6 +109,22 @@ export default function AddConferenceForm({ onCreated }: { onCreated: () => void
           <input
             type="date" value={deadline}
             onChange={(e) => setDeadline(e.target.value)}
+            className="bg-white/5 border border-white/20 rounded-lg px-4 py-2 text-white outline-none focus:border-gold w-full"
+          />
+        </div>
+        <div>
+          <label className="text-xs text-white/50 block mb-1">Registration Fee (e.g. ₹500)</label>
+          <input
+            type="text" placeholder="₹500 or 'Free'" value={registrationFee}
+            onChange={(e) => setRegistrationFee(e.target.value)}
+            className="bg-white/5 border border-white/20 rounded-lg px-4 py-2 text-white outline-none focus:border-gold w-full"
+          />
+        </div>
+        <div>
+          <label className="text-xs text-white/50 block mb-1">Razorpay Payment Link (optional)</label>
+          <input
+            type="url" placeholder="https://rzp.io/l/xxxxxxx" value={paymentLinkUrl}
+            onChange={(e) => setPaymentLinkUrl(e.target.value)}
             className="bg-white/5 border border-white/20 rounded-lg px-4 py-2 text-white outline-none focus:border-gold w-full"
           />
         </div>

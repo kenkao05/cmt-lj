@@ -41,11 +41,13 @@ export async function GET(req: NextRequest, { params }: { params: { conferenceId
   drawText(`Status: ${conference.status}`);
   drawText(`Start Date: ${conference.start_date || 'N/A'}`);
   drawText(`Submission Deadline: ${conference.submission_deadline || 'N/A'}`);
+  drawText(`Registration Fee: ${conference.registration_fee || 'N/A'}`);
+  drawText(`Payment Link: ${conference.payment_link_url ? conference.payment_link_url : 'Not set'}`);
   y -= 10;
   drawText(`Total Submissions: ${submissions?.length || 0}`, 13, true);
   y -= 10;
 
-  submissions?.forEach((s, i) => {
+  submissions?.forEach((s: any, i: number) => {
     drawText(`${i + 1}. ${s.paper_title} (${s.type})`, 12, true);
     drawText(`   Abstract ID: ${s.abstract_id}`);
     drawText(`   Author: ${s.author_name} (${s.author_email})`);

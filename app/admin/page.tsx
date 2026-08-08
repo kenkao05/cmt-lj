@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { createClient } from '@/lib/supabase/client';
-import AddConferenceForm from '@/components/AddConferenceForm'; 
-
+import AddConferenceForm from '@/components/AddConferenceForm';
 
 export default function AdminDashboard() {
   const [submissions, setSubmissions] = useState<any[]>([]);
@@ -56,6 +55,7 @@ export default function AdminDashboard() {
     <div>
       <h1 className="text-2xl font-semibold text-white mb-6">Admin Dashboard</h1>
       <AddConferenceForm onCreated={loadData} />
+
       <div className="flex justify-between items-center mb-6">
         <input
           type="text" placeholder="Search by name, title, or abstract ID..."
@@ -112,8 +112,17 @@ export default function AdminDashboard() {
       <h2 className="text-xl font-semibold text-white mb-4">Conference Reports</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {conferences.map((c) => (
-          <div key={c.id} className="glass-card p-4 flex flex-col gap-2">
-            <span className="text-white">{c.title}</span>
+          <div key={c.id} className="glass-card p-4 flex flex-col gap-3">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-white">{c.title}</span>
+              <span
+                className={`text-[10px] font-semibold uppercase tracking-wide px-2 py-1 rounded-full shrink-0 ${
+                  c.payment_link_url ? 'bg-green-500/10 text-green-400' : 'bg-white/5 text-white/40'
+                }`}
+              >
+                {c.payment_link_url ? 'Payment link set' : 'No payment link'}
+              </span>
+            </div>
             <a
               href={`/api/report/${c.id}`}
               className="gold-btn text-center text-sm"

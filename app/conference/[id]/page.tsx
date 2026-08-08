@@ -25,6 +25,23 @@ export default async function ConferenceDetailPage({ params }: { params: { id: s
         <div>Status: {conference.status}</div>
       </div>
 
+      <div className="glass-card p-4 mb-6">
+        {conference.payment_link_url ? (
+          <a
+            href={conference.payment_link_url}
+            target="_blank"
+            rel="noreferrer"
+            className="gold-btn inline-block"
+          >
+            Pay Registration Fee →
+          </a>
+        ) : (
+          <p className="text-white/60 text-sm">
+            {conference.registration_fee || 'Pay at venue / Payment link coming soon'}
+          </p>
+        )}
+      </div>
+
       <div className="flex gap-4 mb-6">
         {conference.brochure_url && (
           <a href={conference.brochure_url} target="_blank" className="outline-btn text-sm" rel="noreferrer">
